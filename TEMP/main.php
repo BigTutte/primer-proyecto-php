@@ -1,27 +1,26 @@
 <?php
 declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
-include 'CLASSES/SiguientePeli.php'; //incluye el archivo de la clase SiguientePeli
-require_once 'CLASSES/SiguientePeli.php';
+//include 'CLASSES/SiguientePeli.php'; //incluye el archivo de la clase SiguientePeli
 ?>
 
 <main style="background-color:rgb(39, 37, 46); padding: 1rem;">
+    <h6 class="text-center text-light font-sm">
+        <?= 
+        $stringCuantoFalta;
+        ?>
+    </h6>
     <div class="card mb-3 shadow" style="background-color:rgb(59, 56, 68); color: #ffffff;">
-    <img src="<?=$poster_url; ?>" alt="Poster de la pelicula" class="card-img-top"
+    <img src="<?=$posterUrl; ?>" alt="Poster de la pelicula" class="card-img-top"
         style="object-fit: cover; height: 300px;">
     <div class="card-body text-center">
-        <h6>
-            <?= 
-            $stringCuantoFalta     //podria haber mergeado esto con el array
-                                                //$data, para no llamar aca
-            ?>
-        </h6>
+        
         <h5 class="card-title"><?=$title; ?></h5>
         <p class="card-text">
             <?=$overview; ?>
         </p>
         <p class="card-text">
             <small class="text-body-secondary">
-                Fecha de estreno: <?=$release_date; ?>
+                Fecha de estreno: <?=$releaseDate; ?>
             </small>
         </p>
     </div>

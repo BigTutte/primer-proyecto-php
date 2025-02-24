@@ -18,8 +18,8 @@ function getData(String $url) : array //que es lo que devuelve. Se puede especif
         extract($data); //extrae las variables de un array asociativo y las convierte en variables
                         //con el nombre de la clave y el valor de la variable, Ej 
                         //['nombre' => 'Juan'] se convierte en $nombre = 'Juan'
-        require "TEMP/$template.php";   //dentro de una funcion, por lo que el scope no es global
-                                        //y no se puede acceder a variables globales/
+        require_once "TEMP/$template.php";  //dentro de una funcion, por lo que el scope no es global
+                                            //y no se puede acceder a variables globales/
     }
 
 ?>
