@@ -27,8 +27,10 @@ $nextMovieData = array_merge($nextMovieData, $arrayCuantoFalta);
                         // $data = getData(API_URL);
                     ?>
 
+                    <head>
                         <?php renderTemplate('head'); //para que el scope del render sea local?> 
-                    <body>
+                    </head>
+                    <body style="overflow:scroll;">
                         <?php renderTemplate('main', $nextMovieData); ?>
                     </body>
                     <footer>
