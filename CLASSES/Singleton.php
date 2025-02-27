@@ -11,7 +11,7 @@ class miConexion {
         private $dbName,
         private $username,
         private $password,
-        private $host = 'localhost';
+        private $host = 'localhost'
     ) {
 
     }
@@ -24,5 +24,11 @@ class miConexion {
 
         return self::$connection;
     }
-    
-<?
+
+    public function obtenerNombre() {
+        return this->dbName;
+    }
+}
+    $newConnection = new miConexion('persona', 'Matteo', 'matteo123');
+    echo $newConnection->obtenerNombre();
+?>
