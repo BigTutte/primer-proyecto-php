@@ -12,21 +12,22 @@ declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
     <div class="card mb-3 shadow" style="background-color:rgb(59, 56, 68); color: #ffffff;">
     <img src="<?=$posterUrl; //recordar que cada entrada del array asociativo $nextMovieData se convirtio en variable?>" alt="Poster de la pelicula" class="card-img-top"
         style="object-fit: cover; height: 300px;">
-    <div class="card-body text-center">
-        
-        <h5 class="card-title"><?=$title; ?></h5>
-        <p class="card-text">
-            <?=$overview; ?>
-        </p>
-        <p class="card-text">
-            <small class="text-body-secondary">
-                Fecha de estreno: <?=$releaseDate; ?>
-            </small>
-        </p>
+        <div class="card-body text-center">
+            
+            <h5 class="card-title"><?=$title; ?></h5>
+            <p class="card-text">
+                <?=$overview; ?>
+            </p>
+            <p class="card-text">
+                <small class="text-body-secondary">
+                    Fecha de estreno: <?=$releaseDate; ?>
+                </small>
+            </p>
+        </div>
     </div>
-    </div>
-        
-    </div>    
+    
+    <p class="text-center">La <b>API</b> envio esto:</p>
+    
     <pre style="font-size: 16px; overflow: scroll; height:250px">
         <?php var_dump($data);?>   
     </pre>
@@ -44,7 +45,7 @@ declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
                             <input class="form-control" type="text" placeholder="Username" aria-label="default input example">
                             <input class="form-control" type="email" placeholder="Email" aria-label="default input example">
                             <input class="form-control" type="input" placeholder="telefono" aria-label="default input example">
-                            <input class="btn btn-primary" type="submit" value="Submit">
+                            <input class="btn btn-primary" type="submit" value="Enviar">
                     </div>
                     
                 </form>

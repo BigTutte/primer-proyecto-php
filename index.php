@@ -1,5 +1,4 @@
-<?php declare(strict_types=1); //para que php sea mas estricto con los tipos de datos  ?>        
-<?php 
+<?php declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
 
 //require 'funciones.php';      //incluye el archivo de funciones. SE PEGA UNA UNICA VEZ
 
@@ -19,7 +18,7 @@ $nextMovieData = array_merge($nextMovieData, $arrayCuantoFalta);
 
 <!DOCTYPE html>
 <html lang="en" > 
-        <div class="container bg-dark text-light" display="flex">
+        <div class="container bg-dark" display="flex">
                 <div class="col-12">
                     <?php 
                         $ejemploGlobal; //variable global, a modo de ejemplo del scope    
