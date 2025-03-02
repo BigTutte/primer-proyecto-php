@@ -11,7 +11,7 @@ require_once '../../SRC/funciones.php';
             <div class="container flex-col bg-dark">
                 <?php
                     renderTemplate('navbar'); 
-                    echo '<p>Registro</p>';
+                    echo '<p>About</p>';
                     renderTemplate('footer'); 
                 ?>
             </div>
