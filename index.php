@@ -5,7 +5,7 @@
 //include 'funciones.php';      //incluye el archivo de funciones. SI NO EXISTE NO TIRA ERROR
                                 //INCLUDE_ONCE EXISTE Y FUNCIONA IGUAL QUE REQUIRE_ONCE
                                 
-require_once 'funciones.php';               //incluye el archivo de funciones UNA UNICA VEZ,
+require_once 'SRC/funciones.php';               //incluye el archivo de funciones UNA UNICA VEZ,
 require_once 'CLASSES/SiguientePeli.php';   //si ya fue incluido no lo vuelve a incluir
                                             //SI NO EXISTE TIRA ERROR
 const API_URL = "https://whenisthenextmcufilm.com/api";
@@ -20,13 +20,15 @@ $nextMovieData = array_merge($nextMovieData, $arrayCuantoFalta);
 <html lang="en">    
         <?php renderTemplate('head'); //para que el scope del render sea local?>  
         <body>
-        <div class="container flex-col bg-dark">
-        <?php
-            renderTemplate('navbar');       
-            renderTemplate('main', $nextMovieData); ?>
-            <?php renderTemplate('footer'); ?>
+            <div class="container flex-col bg-dark">
+                <?php
+                    renderTemplate('navbar');       
+                    renderTemplate('main', $nextMovieData);
+                    renderTemplate('footer'); 
+                ?>
+            </div>
         </body>
             <?php renderTemplate('styles'); ?>
             <?php renderTemplate('scripts'); ?>
         </div>
-        </html>
+</html>

@@ -18,8 +18,13 @@ function getData(String $url) : array //que es lo que devuelve. Se puede especif
         extract($data); //extrae las variables de un array asociativo y las convierte en variables
                         //con el nombre de la clave y el valor de la variable, Ej 
                         //['nombre' => 'Juan'] se convierte en $nombre = 'Juan'
-        require_once "TEMP/$template.php";  //dentro de una funcion, por lo que el scope no es global
-                                            //y no se puede acceder a variables globales/
+
+        /*
+        Lo que hacemos ahora, es a partir del directorio relativo de la plantilla
+        que queremos renderizar, la incluimos en el archivo actual.
+        */
+        require_once  __DIR__ . "/../TEMP/$template.php";  
+
     }
 
 ?>
