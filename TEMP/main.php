@@ -3,26 +3,42 @@ declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
 //include 'CLASSES/SiguientePeli.php'; //incluye el archivo de la clase SiguientePeli
 ?>
 
-<main style="background-color:rgb(39, 37, 46); padding: 1rem;">
-    <h6 class="text-center text-light font-sm">
-        <?= 
-        $stringCuantoFalta; //mensaje de cuanto falta para el estreno, que se procesa en la funcion padre que llama al renderer de esta template
-        ?>
-    </h6>
-    <div class="card mb-3 shadow" style="background-color:rgb(59, 56, 68); color: #ffffff;">
-    <img src="<?=$posterUrl; //recordar que cada entrada del array asociativo $nextMovieData se convirtio en variable?>" alt="Poster de la pelicula" class="card-img-top"
-        style="object-fit: cover; height: 300px;">
-        <div class="card-body text-center">
-            
-            <h5 class="card-title"><?=$title; ?></h5>
-            <p class="card-text">
-                <?=$overview; ?>
-            </p>
-            <p class="card-text">
-                <small class="text-body-secondary">
-                    Fecha de estreno: <?=$releaseDate; ?>
-                </small>
-            </p>
+<main style="background-color:rgb(39, 37, 46);">
+    <?php 
+    /*
+    * FIXME : no se porque $_POST no se llena
+    */
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $tel = $_POST['tel'];
+        $dataUsername = [
+            'username' => $username,
+            'email' => $email,
+            'tel' => $tel
+        ];
+        /*
+        echo "<p>".$_POST['username']."</p>";
+        echo "<p>".$_POST['email']."</p>";
+        echo "<p>".$_POST['tel']."</p>";
+        */
+    }
+    $_POST = null;
+    ?>
+
+    
+    <div class="container">
+        <div class="row align-items-start">
+            <div class="col-12 col-sm-3">
+                <img src="<?=$posterUrl; //recordar que cada entrada del array asociativo $nextMovieData se convirtio en variable?>" alt="Poster de la pelicula" 
+                style="object-fit: cover; width: 400px;" class="img-fluid pb-3">
+            </div>
+            <div class="col-12 col-sm-9 text-sm-start text-center">
+                <small class="text-light"><?=$stringCuantoFalta; ?></small>
+                <h2><?=$title; ?></h2>
+                <p class="text-light"> <?=$overview; ?></p>
+                
+            </div>
         </div>
     </div>
     
@@ -40,11 +56,11 @@ declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
         </div>
         <div class="col-md-6 col-12">
             <div class="row p-3 mb-3">
-                <form>
+                <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
                     <div class="row p3">
-                            <input class="form-control" type="text" placeholder="Username" aria-label="default input example">
-                            <input class="form-control" type="email" placeholder="Email" aria-label="default input example">
-                            <input class="form-control" type="input" placeholder="telefono" aria-label="default input example">
+                            <input class="form-control" id="username" type="text" placeholder="Username" aria-label="default input example">
+                            <input class="form-control" id="email" type="email" autocomplete="email" placeholder="Email" aria-label="default input example">
+                            <input class="form-control" id="tel" type="input" placeholder="telefono" aria-label="default input example">
                             <input class="btn btn-primary" type="submit" value="Enviar">
                     </div>
                     

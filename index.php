@@ -17,26 +17,16 @@ $nextMovieData = array_merge($nextMovieData, $arrayCuantoFalta);
 ?>
 
 <!DOCTYPE html>
-<html lang="en" > 
-        <div class="container bg-dark" display="flex">
-                <div class="col-12">
-                    <?php 
-                        $ejemploGlobal; //variable global, a modo de ejemplo del scope    
-                        //OJO CON PASAJE DE PARAMETROS, ir al declare strict types de arriba.
-                        // $data = getData(API_URL);
-                    ?>
-
-                    <head>
-                        <?php renderTemplate('head'); //para que el scope del render sea local?> 
-                    </head>
-                    <body style="overflow:scroll;">
-                        <?php renderTemplate('main', $nextMovieData); ?>
-                    </body>
-                    <footer>
-                        <?php renderTemplate('footer'); ?>
-                    </footer>
-                    <?php renderTemplate('styles'); ?>
-                    <?php renderTemplate('scripts'); ?>
-                </div>
+<html lang="en">    
+        <?php renderTemplate('head'); //para que el scope del render sea local?>  
+        <body>
+        <div class="container flex-col bg-dark">
+        <?php
+            renderTemplate('navbar');       
+            renderTemplate('main', $nextMovieData); ?>
+            <?php renderTemplate('footer'); ?>
+        </body>
+            <?php renderTemplate('styles'); ?>
+            <?php renderTemplate('scripts'); ?>
         </div>
-</html>
+        </html>
