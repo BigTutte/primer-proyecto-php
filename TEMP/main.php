@@ -1,33 +1,17 @@
 <?php
 declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
 //include 'CLASSES/SiguientePeli.php'; //incluye el archivo de la clase SiguientePeli
+session_start(); //inicia la sesion
 ?>
 
 <main style="background-color:rgb(39, 37, 46);">
-    <?php 
-    /*
-    * FIXME : no se porque $_POST no se llena
-    */
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $tel = $_POST['tel'];
-        $dataUsername = [
-            'username' => $username,
-            'email' => $email,
-            'tel' => $tel
-        ];
-        /*
-        echo "<p>".$_POST['username']."</p>";
-        echo "<p>".$_POST['email']."</p>";
-        echo "<p>".$_POST['tel']."</p>";
-        */
-    }
-    $_POST = null;
-    ?>
-
-    
     <div class="container">
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="alert alert-success" role="alert">
+                <?= $_SESSION['success'];?>
+            </div>
+            <?php unset($_SESSION['success']); // Eliminar el mensaje de éxito después de mostrarlo ?>
+        <?php endif; ?>
         <div class="row align-items-start">
             <div class="col-12 col-sm-3">
                 <img src="<?=$posterUrl; //recordar que cada entrada del array asociativo $nextMovieData se convirtio en variable?>" alt="Poster de la pelicula" 

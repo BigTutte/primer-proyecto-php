@@ -1,6 +1,9 @@
 <?php
+const API_URL = "https://whenisthenextmcufilm.com/api";
 
-function getData(String $url) : array //que es lo que devuelve. Se puede especificar como no
+
+
+    function getData(String $url) : array //que es lo que devuelve. Se puede especificar como no
     { //en php para metodos se usa snake case normalmente
         global $ejemploGlobal; //variable global en funcion. NO SE PUEDEN USAR SINO SE DECLARAN
         //Si solo quisiera hacer GET de una API: 
@@ -23,8 +26,17 @@ function getData(String $url) : array //que es lo que devuelve. Se puede especif
         Lo que hacemos ahora, es a partir del directorio relativo de la plantilla
         que queremos renderizar, la incluimos en el archivo actual.
         */
-        require_once  __DIR__ . "/../TEMP/$template.php";  
+        require_once __DIR__ . "/../TEMP/{$template}.php";
 
+    }
+
+    function nuevaPelicula(): array {
+        $nextMovie = SiguientePeli::fetchAndCreateMovie(API_URL); //crea un objeto de la clase SiguientePeli
+        $nextMovieData = $nextMovie->getData(); //obtiene los datos del objeto
+        $stringCuantoFalta = $nextMovie->getCuantoFaltaMsj();
+        $arrayCuantoFalta = ['stringCuantoFalta' => $stringCuantoFalta];
+        $nextMovieData = array_merge($nextMovieData, $arrayCuantoFalta);
+        return $nextMovieData; //devuelve los datos de la pelicula
     }
 
 ?>

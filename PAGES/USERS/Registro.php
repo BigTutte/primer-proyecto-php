@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
-require_once '../../SRC/funciones.php';
-
+require_once __DIR__ . "/../../SRC/funciones.php"; //incluye el archivo funciones.php
 ?>
-
 <!DOCTYPE html>
 <html lang="en">    
         <?php renderTemplate('head'); //para que el scope del render sea local?>  

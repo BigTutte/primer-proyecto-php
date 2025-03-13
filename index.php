@@ -8,12 +8,7 @@
 require_once 'SRC/funciones.php';               //incluye el archivo de funciones UNA UNICA VEZ,
 require_once 'CLASSES/SiguientePeli.php';   //si ya fue incluido no lo vuelve a incluir
                                             //SI NO EXISTE TIRA ERROR
-const API_URL = "https://whenisthenextmcufilm.com/api";
-$nextMovie = SiguientePeli::fetchAndCreateMovie(API_URL); //crea un objeto de la clase SiguientePeli
-$nextMovieData = $nextMovie->getData(); //obtiene los datos del objeto
-$stringCuantoFalta = $nextMovie->getCuantoFaltaMsj();
-$arrayCuantoFalta = ['stringCuantoFalta' => $stringCuantoFalta];
-$nextMovieData = array_merge($nextMovieData, $arrayCuantoFalta);
+$nextMovie = nuevaPelicula(); //llama a la funcion nuevaPelicula y guarda el resultado en la variable $nextMovieData
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +18,7 @@ $nextMovieData = array_merge($nextMovieData, $arrayCuantoFalta);
             <div class="container flex-col bg-dark">
                 <?php
                     renderTemplate('navbar');       
-                    renderTemplate('main', $nextMovieData);
+                    renderTemplate('main', $nextMovie);
                     renderTemplate('footer'); 
                 ?>
             </div>

@@ -1,29 +1,34 @@
 <?php
+    // FIXME: ERROR 500 AL INGRESAR A LA PAGINA
+    declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
+    session_start();
+    
+
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $username = $_REQUEST['username']; //USA NAME NO ID
         $email = $_REQUEST['email'];
         $password = $_REQUEST['password'];
         $passwordRepeat = $_REQUEST['passwordRepeat'];
-
         if ($password === $passwordRepeat) {
-            // Aquí iría la lógica para registrar al usuario.
-            //Por mientras, unos echo para poder ver que funciona.
-            echo '<h1 class="text-light" >Usuario registrado con éxito.</h1>';
-            echo '<h2 class="text-light" >'. $username .'</h2>';
-            echo '<h2 class="text-light">'.$email.'</h1>';
+            // Ejemplo de cómo podrías hacerlo (esto es solo un ejemplo, no es funcional):
+            /*
+            $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+            $stmt->execute([$username, $email, password_hash($password, PASSWORD_BCRYPT)]);
+            */
+            if (empty($username) || empty($email) || empty($password)) {
+                $_SESSION['error'] = "Por favor complete todos los campos.";
+            }
+            else {
+                $_SESSION['success'] = "Usuario registrado con éxito.";
+                header("Location: /index.php"); // Cambia esto a la ruta de tu página de éxito
+                exit();
+            }
+
         } else {
-            echo '<h1 class="text-light">Usuario NO registrado con éxito.</h1>';
-            echo '<h2 class="text-light" >'. $username .'</h2>';
-            echo '<h2 class="text-light">'.$email.'</h1>';
+            $_SESSION['error'] = "Las contraseñas no coinciden."; //$PHP_SELF en form se encarga de redirigirse a si mismo
         }
-        exit(); //para que no renderice lo de abajo.
-        /*
-        Podria usar otra template para success, y asignar el mensaje a una variable de session
-        y luego redirigir a la pagina de success.
-        */
     }
 ?>
-
 
 <div class="container d-flex justify-content-center flex-col p-1 p-sm-5">
     <div class="row"> 
@@ -39,7 +44,13 @@
             <div class="card text-dark p-3 bg-gradient" style="border-radius: 5%;">
                 <div class="card-body p-4 text-dark  justify-content-center">
                     <h2 class="card-title text-dark text-center">Ingrese los datos de registro</h2>
-                    <form action="<?php $_PHP_SELF ?>" method="POST">
+                    <?php
+                        if (isset($_SESSION['error'])) {
+                            echo '<div class="alert alert-danger" role="alert">' . $_SESSION['error'] . '</div>';
+                            unset($_SESSION['error']);
+                        }
+                    ?>
+                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                         <div class="form-group">
                             <label for="username" class="form-label">Nombre de Usuario</label>
                             <input type="text" class="form-control" name="username" placeholder="Ejemplo: Juanito123" required>
@@ -60,8 +71,7 @@
                         <div class="form-group d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary rounded" style="width:auto;">Registro</button>
                         </div>
-                    </form>
-                    
+                    </form>         
                 </div>
             </div>
         </div>
