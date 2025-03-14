@@ -6,7 +6,7 @@
 
         public function __construct
             (
-            readonly public string $nombre, //solo se puede modificar en el constructor, necesitan tener un tipo
+            public string $nombre,
             private array $poderes, 
             public $planeta
             )
