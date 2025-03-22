@@ -30,3 +30,5 @@
         document.documentElement.scrollTop = 0;
     }
 </script>
+
+<script src="../SRC/marvel-api.js"></script>

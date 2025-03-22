@@ -1,35 +1,25 @@
 <style>
 
+
     main {
         color-scheme: light dark;
         font: 100%/1.5, sans-serif;
         display: flex;
         place-content: center;
-        background-color: rgb(39, 37, 46);
     }
 
     body {
-    /*
-        background-image: url("<?=$data["poster_url"]; ?>");
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size:contain;
-        background-color: #999;
-    */
         display: grid;
-        background-color:rgb(39, 37, 46);;
+        background-color: rgba(32,36,41,255);
         color-scheme: light dark;
         font: 100%/1.5, sans-serif;
         display: flex;
-        place-content: center;
+        
     }
 
     main {
         display: grid;
-        gap: 1rem;
         place-content: center;
-        padding: 1rem;
     }
 
     img {
