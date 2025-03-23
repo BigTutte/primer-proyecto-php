@@ -4,7 +4,7 @@ declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
 session_start(); //inicia la sesion
 ?>
 
-<main>
+<main style="background-color:rgb(39, 37, 46);">
     <div class="container">
         <?php if (isset($_SESSION['success'])): ?>
             <div class="alert alert-success" role="alert">
@@ -31,20 +31,27 @@ session_start(); //inicia la sesion
     <pre style="font-size: 16px; overflow: scroll; height:250px">
         <?php var_dump($data);?>   
     </pre>
-    <div class="container flex justify-content-center" id="detalles-personajes">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="text-light">Personajes</h2>
+    <div class="container flex jsutify-content-center">
+    <div class="row">
+        <div class="container col-12 col-md-6 text-right flex-col">
+            <img src="../PUBLIC/Marvel_Logo.svg" alt="nerd face" class="img-fluid" width="100px" height="100px">
+            <h1 class="text-md-end text-center">Te gustaria suscribirte para recibir novedades?</h1>
+            
+        </div>
+        <div class="col-md-6 col-12">
+            <div class="row p-3 mb-3">
+                <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
+                    <div class="row p3">
+                            <input class="form-control" id="username" type="text" placeholder="Username" aria-label="default input example">
+                            <input class="form-control" id="email" type="email" autocomplete="email" placeholder="Email" aria-label="default input example">
+                            <input class="form-control" id="tel" type="input" placeholder="telefono" aria-label="default input example">
+                            <input class="btn btn-primary" type="submit" value="Enviar">
+                    </div>
+                    
+                </form>
             </div>
         </div>
-        <div class="row">
-            <!-- Aqui se muestran los personajes. Sera un carrousel con imagenes que redirigen a la wiki del personaje.-->
-            <button id="prev">Prev</button>
-            <div id="character-container" class="col-12 text-center">
-                <!-- Characters will be injected here by JavaScript -->
-            </div>
-            <button id="next">Next</button>
-        </div>
+    </div>
     </div>
     
     <p class="text-center">A ver cual es la proxima peli de Marvel?</p>

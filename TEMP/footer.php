@@ -1,58 +1,17 @@
 
-<footer class="flex flex-wrap text-center  py-3 my-2 border-top text-lg-start bg-body-tertiary text-muted">
-    <p class="mb-0 text-body-secondary ">Todas las imágenes usadas no me pertenecen, son de terceros como Marvel</p>
-    <section class="">
-        <div class="container text-center text-md-start mt-5">
-        <!-- Grid row -->
-            <div class="row">
-                <!-- Grid column -->
-                <div class="col mx-auto mb-4">
-                <!-- Content -->
-                <h6 class="text-uppercase fw-bold mb-4">
-                <i class="fa-solid fa-code"></i>
-                Mi nombre, en teoria
-                </h6>
-                <p>
-                    Texto generico para describir un poco el proyecto o lo que sea
-                </p>
-                </div>
-                <!-- Grid column -->
+<footer class="d-flex flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <p class="col-md-4 mb-0 text-body-secondary">Todas las imágenes usadas no me pertenecen, son de terceros como Marvel</p>
 
-                <!-- Grid column -->
-                <div class="col mx-auto mb-4">
-                <!-- Links -->
-                <h6 class="text-uppercase fw-bold mb-4">
-                    Otras cosas que he desarrollado (a futuro)
-                </h6>
-                <p>
-                    <a href="#!" class="text-reset">Proyecto 1</a>
-                </p>
-                <p>
-                    <a href="#!" class="text-reset">Proyecto 2</a>
-                </p>
-                <p>
-                    <a href="#!" class="text-reset">Proyecto 3</a>
-                </p>
-                <p>
-                    <a href="#!" class="text-reset">Proyecto 4</a>
-                </p>
-                </div>
-                <!-- Grid column -->
+    <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+    </a>
 
-                <!-- Grid column -->
-                <div class="col mx-auto mb-md-0 mb-4">
-                <!-- Links -->
-                <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
-                <p>
-                    <i class="fas fa-envelope me-3"></i>
-                    matteocardozodev@gmail.com
-                </p>
-                </div>
-                <!-- Grid column -->
-            </div>
-        <!-- Grid row -->
-        </div>
-    </section>   
+    <ul class="nav col-md-4 justify-content-end">
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+        <li class="nav-item"><a href="/PAGES/ABOUT/About.php" class="nav-link px-2 text-body-secondary">About</a></li>
+    </ul>
+
     <button
         type="button"
         class="btn btn-danger btn-floating btn-lg"
