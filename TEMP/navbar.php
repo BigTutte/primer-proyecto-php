@@ -13,13 +13,13 @@
         <div class="collapse navbar-collapse text-light " id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                    <a class="nav-link active" aria-current="page" href="/">Start</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/PAGES/ABOUT/About.php">Sobre mi</a>
+                    <a class="nav-link" href="/PAGES/ABOUT/About.php">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/PAGES/USERS/Registro.php">Registro</a>
+                    <a class="nav-link" href="/PAGES/USERS/Registro.php">Sign In</a>
                 </li>
             </ul>
         </div>
