@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <nav class="navbar navbar-sm navbar-expand-sm navbar-dark text-light p-2">
     <div class="container-fluid">
         <a class="navbar-brand font-sm" href="/">
@@ -18,12 +22,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/PAGES/ABOUT/About.php">About</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/PAGES/USERS/Registro.php">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/PAGES/USERS/Login.php">Log In</a>
-                </li>
+                
+                <?php
+                if (isset($_SESSION['user'])) { // Verifica si el usuario está logueado
+                    echo '<li class="nav-item">
+                            <a class="nav-link" href="/SRC/Logout.php">Log Out</a> 
+                          </li>'; //Capaz intento borrar de user al usuario, y redirigir a index
+                }
+                else { //el usuario no esta logueado
+                    echo '<li class="nav-item">
+                            <a class="nav-link" href="/PAGES/USERS/Login.php">Log In</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="/PAGES/USERS/Registro.php">Register</a>
+                          </li>';
+                }
+                ?>
             </ul>
         </div>
         

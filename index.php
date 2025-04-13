@@ -9,6 +9,7 @@ require_once 'SRC/funciones.php';               //incluye el archivo de funcione
 require_once 'CLASSES/SiguientePeli.php';   //si ya fue incluido no lo vuelve a incluir
                                             //SI NO EXISTE TIRA ERROR
 $nextMovie = nuevaPelicula(); //llama a la funcion nuevaPelicula y guarda el resultado en la variable $nextMovieData
+
 ?>
 
 <!DOCTYPE html>

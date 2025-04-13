@@ -19,7 +19,9 @@
                 $_SESSION['error'] = "Por favor complete todos los campos.";
             }
             else {
-                $_SESSION['success'] = "Usuario registrado con éxito.";
+                $_SESSION['success'] = $username;
+                $_SESSION['user'] = $username; // Guardar el nombre de usuario en la sesión
+                echo var_dump($_SESSION);
                 header("Location: /index.php"); // Cambia esto a la ruta de tu página de éxito
                 exit();
             }
