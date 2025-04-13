@@ -19,7 +19,10 @@
                     <a class="nav-link" href="/PAGES/ABOUT/About.php">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/PAGES/USERS/Registro.php">Sign In</a>
+                    <a class="nav-link" href="/PAGES/USERS/Registro.php">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/PAGES/USERS/Login.php">Log In</a>
                 </li>
             </ul>
         </div>

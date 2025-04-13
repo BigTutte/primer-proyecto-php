@@ -14,7 +14,7 @@ class dbConnection { //eventualmente referenciara a la clase de conexion a la ba
         private $dbName,
         private $username,
         private $password,
-        private $host = 'localhost'
+        private $host = 'localhost' //TODO: Verificar como indicarle el host. Por ahora, ya que es un mock. 
     ) {
         // Crear la conexión MySQLi
         $this->mysqli = new \mysqli($this->host, $this->username, $this->password, $this->dbName);
@@ -42,23 +42,24 @@ class dbConnection { //eventualmente referenciara a la clase de conexion a la ba
     }
 
     // Método para obtener la conexión MySQLi
-    public function getMysqli() {
+    //IMPORTANTE: devolver mixed ya que puede ser mysqli o false (pero no asegura la integridad de datos devueltos)
+    public function getMysqli(): mixed {
         return $this->mysqli;
     }
 
     //getters
-    public function get_db_name() {
+    public function get_db_name(): string {
         return $this->dbName;
     }
 
-    public function get_username() {
+    public function get_username(): string {
         return $this->username;
     }
 
-    public function get_password() {
+    public function get_password(): string {
         return $this->password;
     }
-    public function get_host() {
+    public function get_host(): string {
         return $this->host;
     }
     //setters? no tiene sentido ya que el singleton no puede cambiar
