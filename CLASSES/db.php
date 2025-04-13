@@ -4,10 +4,10 @@
 
 namespace databases;
 
-class dbConnection { //eventualmente referenciara a la clase de conexion a la base de datos que guardara el historial de pelis de marvel
+class dbUsers { //eventualmente referenciara a la clase de conexion a la base de datos que guardara el historial de pelis de marvel
 
     private static $connection; //nuestra propiedad para poder chequear si ya existe
-    private static $filePath = '/path/to/connection.ser'; // archivo para persistencia
+    private static $filePath = '../STORAGE/users.ser'; // archivo para persistencia, ruta relativa al directorio actual
     private $mysqli; // propiedad para la conexión MySQLi
 
     private function __construct( //privada por la propiedad de singleton, para que no pueda ser instanciada
@@ -34,7 +34,7 @@ class dbConnection { //eventualmente referenciara a la clase de conexion a la ba
                 // Recuperar la instancia desde el archivo
                 self::$connection = unserialize(file_get_contents(self::$filePath));
             } else {
-                self::$connection = new dbConnection($dbName, $username, $password); //la creo por primera vez
+                self::$connection = new dbUsers($dbName, $username, $password); //la creo por primera vez
             }
         }
         // Si ya existe, simplemente devuelve la instancia existente
@@ -63,11 +63,24 @@ class dbConnection { //eventualmente referenciara a la clase de conexion a la ba
         return $this->host;
     }
     //setters? no tiene sentido ya que el singleton no puede cambiar
+
+    //dbUser: Devuelve true o false si el usuario existe o no
+    public function dbFindUser($username, $password): bool {
+        // Aquí deberías implementar la lógica para verificar si el usuario existe en la base de datos
+        // Por ejemplo, podrías hacer una consulta a la base de datos y verificar si el usuario y la contraseña son correctos
+        $stmt = $this->mysqli->prepare("SELECT * FROM users WHERE username = ? AND password = ?"); //preparo la query
+        $stmt->bind_param("ss", $username, $password); //anclo los parametros a la query
+        $stmt->execute(); //ejecuto la query
+        $result = $stmt->get_result();
+        return $result->num_rows > 0; // Devuelve true si el usuario existe, false en caso contrario
+        //A LA HORA DEL REGISTRO RECORDAR CONTROLAR QUE NO EXISTA EL USUARIO, sino la query devuelve mas de una fila
+        //(que no es correcto)
+    }
 }
-    $newConnection = dbConnection::openConnection('persona', 'Matteo', 'matteo123'); //observar que new no funciona aca ya que el constructor es privado
+    $newConnection = dbUsers::openConnection('persona', 'Matteo', 'matteo123'); //observar que new no funciona aca ya que el constructor es privado
     echo $newConnection->get_db_name();
     echo '<br>';
-    $siguienteConexion = dbConnection::openConnection('lugares', 'Matteo', 'matteo123');
+    $siguienteConexion = dbUsers::openConnection('lugares', 'Matteo', 'matteo123');
     echo $siguienteConexion->get_db_name(); //no se instancio de nuevo, ya que la propiedad es estatica y ya existe
 
     // Ejemplo de uso de la conexión MySQLi

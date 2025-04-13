@@ -1,7 +1,10 @@
 <?php
 declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
+
+use databases\dbUsers;
+
 session_start();
-require_once __DIR__ . "/../../SRC/funciones.php"; //incluye el archivo funciones.php
+require_once "_DIR_ . '/../../CLASSES/db.php'"; //incluye el archivo funciones.php
 
 //VERIFICAR SI EL USUARIO YA ESTA LOGUEADO
 if (isset($_SESSION['user'])) {
@@ -16,8 +19,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $_SESSION['error'] = "Por favor complete todos los campos.";
     }
     else {
-        // Aquí deberías verificar las credenciales del usuario en la base de datos
-        // Si las credenciales son correctas, inicia sesión y redirige al usuario
+        /* 
+        Aquí deberías verificar las credenciales del usuario en la base de datos
+        Si las credenciales son correctas, inicia sesión y redirige al usuario
+        Debemos llamar a la base de datos y que nos devuelva true o false en caso de no encontrar al usuario con ese 
+        nombre y contra
+        */
+        $dbUsers = dbUsers::openConnection("users", $username, $password);
+        $boolUser = $dbUsers->dbFindUser($username, $password); //llama a la funcion dbUser y guarda el resultado en la variable $dtUser
+        if ($boolUser === false) {
+            $_SESSION['error'] = "Usuario o contraseña incorrectos.";
+            header("Location: /PAGES/USERS/Login.php"); // Redirige a la página de inicio de sesión
+            exit();
+        }
         $_SESSION['user'] = $username; // Guardar el nombre de usuario en la sesión
         header("Location: /index.php"); // Cambia esto a la ruta de tu página de éxito
         exit();
@@ -25,20 +39,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 ?>
 
-<div class="container d-flex justify-content-center flex-col p-1 p-sm-5">
-    <div class="row"> 
-        <div class="p-3 col-12 col-sm-6 text-center text-light flex flex-col justify-content-center align-items-center">
-            <h2 class="text-light">tipica imagen abstracta aca <small class="text-muted">Pero yo le pongo un gif de mickey porque jaja</small></h2>
-            
-            <img 
-                src="https://c.tenor.com/vgbvXol4B5QAAAAC/tenor.gif" 
-                class="img-fluid" style="border-radius: 10%;" alt="tipica imagen abstracta"
-            >
-        </div>
-        <div class="col-12 col-sm-6">
-            <div class="card text-dark p-3 bg-gradient" style="border-radius: 5%;">
+<!DOCTYPE html>
+<div class="container justify-content-center flex-col p-4">
+    <div class="row justify-content-center">
+        <div class="col-sm-6 col-12">
+            <div class="card text-dark pt-4 bg-gradient" style="border-radius: 5%;">
+                <img src="../../PUBLIC/Mickey_Mouse.svg" class="img-fluid pb-3" alt="logo de mickey" style="width: 100px;">
                 <div class="card-body p-4 text-dark  justify-content-center">
-                    <h2 class="card-title text-dark text-center">Ingrese los datos de registro</h2>
+                    <h2 class="card-title text-dark text-center">Iniciar sesión</h2>
                     <?php
                         if (isset($_SESSION['error'])) {
                             echo '<div class="alert alert-danger" role="alert">' . $_SESSION['error'] . '</div>';
@@ -47,24 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     ?>
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                         <div class="form-group">
-                            <label for="username" class="form-label">Nombre de Usuario</label>
-                            <input type="text" class="form-control" name="username" placeholder="Ejemplo: Juanito123" required>
+                            <label for="username" class="form-label text-dark">Nombre de Usuario</label>
+                            <input type="text" class="form-control" name="username" placeholder="Juanito123" required>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="form-label text-dark">Email</label>
-                            <input type="email" class="form-control" name="email" placeholder="hola123@mail.com" required>
-                            <small id="emailHelp" class="form-text text-muted">Lo usaremos para identificarte.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="tel" class="form-label text-dark">Password</label>
+                            <label for="pass" class="form-label text-dark">Password</label>
                             <input type="password" class="form-control" name="password" id="password" placeholder="password" required>
                         </div>
-                        <div class="form-group">
-                            <label for="tel" class="form-label text-dark">Repetir Password</label>
-                            <input type="password" class="form-control" name="passwordRepeat" id="passwordRepeat" placeholder="password" required>
-                        </div>
-                        <div class="form-group d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary rounded" style="width:auto;">Registro</button>
+                        <div class="form-group d-flex justify-content-center pt-3">
+                            <button type="submit" class="btn btn-primary rounded" style="width:auto;">Iniciar Sesión</button>
                         </div>
                     </form>         
                 </div>

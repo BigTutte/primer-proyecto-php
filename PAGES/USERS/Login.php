@@ -8,12 +8,13 @@ require_once __DIR__ . "/../../SRC/funciones.php"; //incluye el archivo funcione
         <?php renderTemplate('head'); //para que el scope del render sea local?>  
         <body>
             <div class="container flex-col bg-dark">
-                <?php
-                    renderTemplate('navbar');       
+                <?php    
                     renderTemplate('Log');
                     renderTemplate('footer'); 
                 ?>
+                
             </div>
+            
         </body>
             <?php renderTemplate('styles'); ?>
             <?php renderTemplate('scripts'); ?>
