@@ -1,10 +1,13 @@
 <?php
 declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
-
+require_once __DIR__ . '/../CLASSES/db.php'; //incluye el archivo db.php
 use databases\dbUsers;
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 session_start();
-require_once "_DIR_ . '/../../CLASSES/db.php'"; //incluye el archivo funciones.php
+
 
 //VERIFICAR SI EL USUARIO YA ESTA LOGUEADO
 if (isset($_SESSION['user'])) {
@@ -25,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         Debemos llamar a la base de datos y que nos devuelva true o false en caso de no encontrar al usuario con ese 
         nombre y contra
         */
-        $dbUsers = dbUsers::openConnection("users", $username, $password);
+        $dbUsers = dbUsers::openConnection('users', 'Matteo', 'matteo123');
         $boolUser = $dbUsers->dbFindUser($username, $password); //llama a la funcion dbUser y guarda el resultado en la variable $dtUser
         if ($boolUser === false) {
             $_SESSION['error'] = "Usuario o contraseña incorrectos.";

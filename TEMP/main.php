@@ -1,7 +1,6 @@
 <?php
 declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
 //include 'CLASSES/SiguientePeli.php'; //incluye el archivo de la clase SiguientePeli
-session_start(); //inicia la sesion
 ?>
 
 <main class="bg-dark text-light">

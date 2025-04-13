@@ -1,6 +1,8 @@
 <?php
-    // FIXME: ERROR 500 AL INGRESAR A LA PAGINA
     declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
+    require_once __DIR__ ."/../CLASSES/db.php"; //incluye el archivo db.php
+    use databases\dbUsers;
+
     session_start();
     
 
@@ -21,9 +23,15 @@
             else {
                 $_SESSION['success'] = $username;
                 $_SESSION['user'] = $username; // Guardar el nombre de usuario en la sesión
-                echo var_dump($_SESSION);
-                header("Location: /index.php"); // Cambia esto a la ruta de tu página de éxito
-                exit();
+                $dbUsers = dbUsers::openConnection('users', 'Matteo', 'matteo123');
+                $success = $dbUsers->registerUser($username, $password);
+                if ($success) {
+                    echo var_dump($_SESSION);
+                    header("Location: /index.php"); // Cambia esto a la ruta de tu página de éxito
+                    exit();
+                } else {
+                    $_SESSION['error'] = "Error al registrar el usuario.";
+                }
             }
 
         } else {
