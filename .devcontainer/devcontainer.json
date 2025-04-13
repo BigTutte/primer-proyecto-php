@@ -1,0 +1,11 @@
+{
+    "name": "PHP Development Container",
+    "image": "mcr.microsoft.com/vscode/devcontainers/php:8",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:1": {},
+        "ghcr.io/devcontainers/features/php:1": {
+            "installMysqli": true
+        }
+    },
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y php-mysql && sudo docker-php-ext-install mysqli && sudo docker-php-ext-enable mysqli"
+}
