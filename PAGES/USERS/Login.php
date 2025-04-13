@@ -1,13 +1,6 @@
-<?php declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
-
-//require 'funciones.php';      //incluye el archivo de funciones. SE PEGA UNA UNICA VEZ
-
-//include 'funciones.php';      //incluye el archivo de funciones. SI NO EXISTE NO TIRA ERROR
-                                //INCLUDE_ONCE EXISTE Y FUNCIONA IGUAL QUE REQUIRE_ONCE
-                                
-require_once 'SRC/funciones.php';               //incluye el archivo de funciones UNA UNICA VEZ,
-require_once 'CLASSES/SiguientePeli.php';   //si ya fue incluido no lo vuelve a incluir
-                                            //SI NO EXISTE TIRA ERROR
+<?php
+declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
+require_once __DIR__ . "/../../SRC/funciones.php"; //incluye el archivo funciones.php
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +10,7 @@ require_once 'CLASSES/SiguientePeli.php';   //si ya fue incluido no lo vuelve a 
             <div class="container flex-col bg-dark">
                 <?php
                     renderTemplate('navbar');       
-                    renderTemplate('Login');
+                    renderTemplate('Log');
                     renderTemplate('footer'); 
                 ?>
             </div>
