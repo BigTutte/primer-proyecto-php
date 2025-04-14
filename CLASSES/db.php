@@ -1,6 +1,10 @@
 <?php
 namespace databases;
 
+use SiguientePeli;
+
+require_once 'SiguientePeli.php';
+
 ini_set('display_errors', 1);
 //SINGLETON: Una unica instancia de la clase puede existir.
 //get_db_name para poder probar el singleton
@@ -194,6 +198,132 @@ class dbUsers { //database de usuarios
             error_log("Error al registrar usuario: " . $e->getMessage());
             return false;
         }
+    }
+}
+
+
+class dbPelis { //database de pelis
+    /*
+    Esta database va a funcionar igual que la de usuarios, solo que va a tener un historial de pelis.
+    Hay que determinar si la peli ya fue agregada, lo que no se puede hacer con cada call al sv desde el cliente
+    (ej: index desde varios usuarios), que sobrecargaria al mismo. Se debe hacer desde el servidor.
+    La peli se debe agregar a la base de datos una sola vez, y solamente verificar si hay otra peli nueva pasada
+    la fecha de estreno, asi se hace un unico intento, pero debe hacerlo el sv.
+    */
+    private static $instance; //nuestra propiedad para poder chequear si ya existe
+    private static $filePath = __DIR__ . '/../STORAGE/pelis.sqlite'; // archivo para persistencia, ruta relativa al directorio actual
+    private $dbName; //la misma sera dbPelis
+    private $sqlite = null; //Mismo que antes, usamos SQLite.
+
+    private function __construct() {
+        $this->dbName = 'pelis';
+        try {
+            // Asegurar que el directorio existe
+            $dir = dirname(self::$filePath); //cargamos el directorio
+            if (!is_dir($dir)) { //si nuestra ruta no esta creada
+                mkdir($dir, 0755, true); //la creamos
+            }
+            
+            // Crear la conexión SQLite
+            $this->sqlite = new \SQLite3(self::$filePath);
+            
+            // Crear tabla si no existe
+            $this->createTablesPelis();
+            
+        } catch (\Exception $e) {
+            error_log("Error en la conexión a la base de datos: " . $e->getMessage());
+            throw $e; // Re-lanzar la excepción para que el código que llama pueda manejarla
+        }
+    }
+    // Método para obtener la instancia de la clase (Singleton)
+    public static function openConnection() {
+        if (self::$instance === null) { //si es la primera vez que se instancia, se crea
+            try {
+                // Crear nueva instancia
+                self::$instance = new self();
+            } catch (\Exception $e) {
+                error_log("Error al abrir conexión: " . $e->getMessage());
+                throw $e;
+            }
+        }
+        return self::$instance;
+    }
+
+    // Crear tabla de pelis si no existe
+    private function createTablesPelis() {
+        $this->sqlite->exec("
+            CREATE TABLE IF NOT EXISTS pelis (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT NOT NULL UNIQUE,
+                release_date TEXT NOT NULL
+            )
+        ");
+    }
+
+    // Método para agregar una nueva película
+    public function addPeli(string $peli, string $releaseDate): bool {
+        try {
+            // Verificar si la película ya existe
+            $checkStmt = $this->sqlite->prepare("SELECT * FROM pelis WHERE title = :title");
+            $checkStmt->bindValue(':title', $peli, SQLITE3_TEXT);
+            $result = $checkStmt->execute();
+            
+            if ($result->fetchArray()) { //devuelve false si no tiene nada
+                // La película ya existe, podríamos actualizar sus datos en caso de ser necesario
+                return false; // O true, dependiendo de la lógica de negocio
+            }
+            
+            // Si no existe, procedemos a insertarla
+
+            //preparamos la query
+            $stmt = $this->sqlite->prepare("
+                INSERT INTO pelis (title, release_date) 
+                VALUES (:title, :release_date)
+            ");
+            //bindeamos valores
+            $stmt->bindValue(':title', $peli, SQLITE3_TEXT);
+            $stmt->bindValue(':release_date', $releaseDate, SQLITE3_TEXT);
+
+            //ejecutamos
+            $stmt->execute();
+            
+            return true;
+        } catch (\Exception $e) {
+            error_log("Error al agregar película: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    // Método para buscar una película por título
+    public function findPeliByTitle(string $title): array|false {
+        try {
+            //Se repite el patron:
+            //preparamos la query
+            $stmt = $this->sqlite->prepare("SELECT * FROM pelis WHERE title = :title");
+            //bindeamos valores
+            $stmt->bindValue(':title', $title, SQLITE3_TEXT);
+            //ejecutamos
+            $result = $stmt->execute();
+            //fetchArray devuelve un array asociativo, por lo que lo guardamos en un array
+            //devuelve false si no tiene nada
+            return $result->fetchArray(SQLITE3_ASSOC);
+        } catch (\Exception $e) {
+            error_log("Error al buscar película: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    // Método para obtener la conexión SQLite
+    public function obtenerPelis(): array {
+        //de-serializo directo en la funcion
+        $pelis = [];
+        //result es un objeto SQLite3Result
+        $result = $this->sqlite->query("SELECT * FROM pelis");
+        //fetchArray devuelve un array asociativo, por lo que lo guardamos en un array
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) { 
+            $pelis[] = $row; // Agregamos cada fila al array
+        }
+        return $pelis;
     }
 }
 ?>

@@ -2,8 +2,6 @@
     declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
     require_once __DIR__ ."/../CLASSES/db.php"; //incluye el archivo db.php
     use databases\dbUsers;
-
-    session_start();
     
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {

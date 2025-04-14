@@ -1,6 +1,22 @@
 <?php
 declare(strict_types=1); //para que php sea mas estricto con los tipos de datos
 //include 'CLASSES/SiguientePeli.php'; //incluye el archivo de la clase SiguientePeli
+
+/*
+LLAMO A DBPELIS PARA GUARDAR LA PELI, esto no puede quedar asi ya que en cada carga de pagina se va a intentar guardar.
+Debemos modificar como se usa esto, y va a ser en base a la release date de la ultima peli agregada.
+Por mientras, lo dejo asi para que funcione.
+*/
+require_once __DIR__ . '/../CLASSES/db.php'; //incluye el archivo de la clase db
+use databases\dbPelis;
+
+$dbPelis = dbPelis::openConnection();
+$dbPelis->addPeli($title, $releaseDate);
+//llama a la funcion findPeliByTitle y guarda el resultado en la variable $nextMovieData
+
+//var_dump($dbPelis->findPeliByTitle($title)); quitar // pa probar. Funciona bien :D
+
+
 ?>
 
 <main class="bg-dark text-light">
